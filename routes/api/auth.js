@@ -4,7 +4,7 @@ const ctrl = require("../../controllers/auth");
 
 const { ctrlWrapper } = require("../../helpers");
 
-const { validateBody } = require("../../middelwares");
+const { validateBody, authenticate } = require("../../middelwares");
 
 const { schemas } = require("../../models/user");
 
@@ -21,5 +21,7 @@ router.post(
   validateBody(schemas.loginSchema),
   ctrlWrapper(ctrl.login)
 );
+
+router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 module.exports = router;
