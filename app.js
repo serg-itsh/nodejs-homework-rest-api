@@ -3,6 +3,20 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
+// const bcrypt = require("bcryptjs");
+
+// const hashPassword = async (password) => {
+//   const result = await bcrypt.hash(password, 10);
+//   console.log(result);
+//   const compare1 = await bcrypt.compare("123456", result);
+//   console.log(compare1);
+//   const compare2 = await bcrypt.compare("123457", result);
+//   console.log(compare2);
+// };
+
+// hashPassword("123456");
+
+const authRouter = require("./routes/api/auth"); //
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -13,6 +27,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/auth", authRouter); //
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
